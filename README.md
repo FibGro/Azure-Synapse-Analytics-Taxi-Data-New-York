@@ -1,4 +1,4 @@
-# Introduction to Azure Synapse Analytics
+# Azure Synapse Analytics Project
 
 ## Table of Contents
 * [General Information](#general-information)
