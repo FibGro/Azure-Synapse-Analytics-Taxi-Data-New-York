@@ -1,0 +1,269 @@
+{
+	"name": "1_read_cosmos_db_analytical_store_into_spark_dataframe",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "coursepool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "7e412ff1-3646-441f-b5ad-1e91976a60fe"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1",
+				"state": {
+					"121b904d-1375-4036-a402-a9159d3ef8cd": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"0": "Y9JXAP6dHzsEAAAAAAAAAA==",
+										"1": "1707394409",
+										"2": "driver-000004",
+										"3": "true",
+										"4": "2.01",
+										"5": "4",
+										"6": "device-000004",
+										"7": "2022-05-16T01:25:43.501Z",
+										"8": {
+											"latitude": 40.8448,
+											"longitude": 73.8648
+										},
+										"9": {
+											"latitude": 40.8431,
+											"longitude": 73.9122
+										},
+										"10": "00efd3f9-c1d7-46b9-83b0-855b5372931a",
+										"11": "\"0b008d02-0000-0100-0000-65c4c5690000\""
+									},
+									{
+										"0": "Y9JXAP6dHzsFAAAAAAAAAA==",
+										"1": "1707394420",
+										"2": "driver-000005",
+										"3": "true",
+										"4": "20.8",
+										"5": "54",
+										"6": "device-000005",
+										"7": "2022-05-16T01:25:43.519Z",
+										"8": {
+											"latitude": 40.7282,
+											"longitude": 73.7949
+										},
+										"9": {
+											"latitude": 40.7231,
+											"longitude": 73.9412
+										},
+										"10": "477e87e1-bae8-42c2-a990-8e35fe318211",
+										"11": "\"0b009302-0000-0100-0000-65c4c5740000\""
+									},
+									{
+										"0": "Y9JXAP6dHzsDAAAAAAAAAA==",
+										"1": "1707394396",
+										"2": "driver-000003",
+										"3": "true",
+										"4": "1.03",
+										"5": "5",
+										"6": "device-000003",
+										"7": "2022-05-16T01:25:43.517Z",
+										"8": {
+											"latitude": 40.8116,
+											"longitude": 73.9465
+										},
+										"9": {
+											"latitude": 40.8131,
+											"longitude": 73.9562
+										},
+										"10": "c9106d0d-4678-4edc-830d-5d9ea68c416a",
+										"11": "\"0b008b02-0000-0100-0000-65c4c55c0000\""
+									},
+									{
+										"0": "Y9JXAP6dHzsBAAAAAAAAAA==",
+										"1": "1707393951",
+										"2": "driver-000001",
+										"3": "true",
+										"4": "10.02",
+										"5": "22",
+										"6": "device-000001",
+										"7": "2022-05-16T01:25:43.511Z",
+										"8": {
+											"latitude": 40.7831,
+											"longitude": 73.9712
+										},
+										"9": {
+											"latitude": 40.7931,
+											"longitude": 73.9512
+										},
+										"10": "589272c1-8fff-4951-bef9-38fb1a740da9",
+										"11": "\"0b000b02-0000-0100-0000-65c4c39f0000\""
+									},
+									{
+										"0": "Y9JXAP6dHzsCAAAAAAAAAA==",
+										"1": "1707393998",
+										"2": "driver-000002",
+										"3": "false",
+										"4": "0.0",
+										"5": "0",
+										"6": "device-000002",
+										"7": "2022-05-16T01:25:43.515Z",
+										"8": {
+											"latitude": 40.6782,
+											"longitude": 73.9442
+										},
+										"9": {
+											"latitude": 40.6731,
+											"longitude": 73.9502
+										},
+										"10": "8585615d-3677-490f-8160-2a5c4127539f",
+										"11": "\"0b001602-0000-0100-0000-65c4c3ce0000\""
+									}
+								],
+								"schema": [
+									{
+										"key": "0",
+										"name": "_rid",
+										"type": "string"
+									},
+									{
+										"key": "1",
+										"name": "_ts",
+										"type": "bigint"
+									},
+									{
+										"key": "2",
+										"name": "driverId",
+										"type": "string"
+									},
+									{
+										"key": "3",
+										"name": "hired",
+										"type": "boolean"
+									},
+									{
+										"key": "4",
+										"name": "distanceToDestination",
+										"type": "double"
+									},
+									{
+										"key": "5",
+										"name": "timeToDestinationMins",
+										"type": "bigint"
+									},
+									{
+										"key": "6",
+										"name": "deviceId",
+										"type": "string"
+									},
+									{
+										"key": "7",
+										"name": "deviceTimestamp",
+										"type": "string"
+									},
+									{
+										"key": "8",
+										"name": "DeviceLocation",
+										"type": "StructType(StructField(latitude,DoubleType,true),StructField(longitude,DoubleType,true))"
+									},
+									{
+										"key": "9",
+										"name": "DestinationLocation",
+										"type": "StructType(StructField(latitude,DoubleType,true),StructField(longitude,DoubleType,true))"
+									},
+									{
+										"key": "10",
+										"name": "id",
+										"type": "string"
+									},
+									{
+										"key": "11",
+										"name": "_etag",
+										"type": "string"
+									}
+								],
+								"truncated": false
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "sum",
+									"categoryFieldKeys": [
+										"0"
+									],
+									"seriesFieldKeys": [
+										"1"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					}
+				}
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/8491617a-dd85-4af2-a863-aff0c4d5c6df/resourceGroups/synapse-course-rg/providers/Microsoft.Synapse/workspaces/synapse-course-ws99/bigDataPools/coursepool",
+				"name": "coursepool",
+				"type": "Spark",
+				"endpoint": "https://synapse-course-ws99.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/coursepool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.3",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"# Read from Cosmos DB analytical store into a Spark DataFrame and display 10 rows from the DataFrame\n",
+					"# To select a preferred list of regions in a multi-region Cosmos DB account, add .option(\"spark.cosmos.preferredRegions\", \"<Region1>,<Region2>\")\n",
+					"\n",
+					"df = spark.read\\\n",
+					"    .format(\"cosmos.olap\")\\\n",
+					"    .option(\"spark.synapse.linkedService\", \"ls_cosmos_db_nyc_taxi_data\")\\\n",
+					"    .option(\"spark.cosmos.container\", \"Heartbeat\")\\\n",
+					"    .load()\n",
+					"\n",
+					"display(df.limit(10))"
+				],
+				"execution_count": 1
+			}
+		]
+	}
+}

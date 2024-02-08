@@ -1,0 +1,20 @@
+{
+	"name": "1_create_database_ldw",
+	"properties": {
+		"folder": {
+			"name": "nyc-taxi/ldw (logical datawarehouse)"
+		},
+		"content": {
+			"query": "USE master\nGO\n\n-- Create database\nCREATE DATABASE nyc_taxi_ldw\nGO\n\n-- Use the collation of UTF8\nALTER DATABASE nyc_taxi_ldw COLLATE Latin1_General_100_BIN2_UTF8\nGO\n\n-- Use the database ldw \nUSE nyc_taxi_ldw\nGO\n\n-- Create schema bronze\nCREATE SCHEMA bronze\nGO\n\n-- Create a schema silver \nCREATE SCHEMA silver\nGO\n\n-- Create schema gold \nCREATE SCHEMA gold\nGO\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_ldw",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

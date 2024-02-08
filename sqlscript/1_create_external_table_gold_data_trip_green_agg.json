@@ -1,0 +1,20 @@
+{
+	"name": "1_create_external_table_gold_data_trip_green_agg",
+	"properties": {
+		"folder": {
+			"name": "nyc-taxi/dwh"
+		},
+		"content": {
+			"query": "\n-- Create an external table, thus we can query directly from data lake. \n-- It is used Polybase to read from data lake by using MPP artichecture\nCREATE SCHEMA staging\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'parquet_file_format') \n\tCREATE EXTERNAL FILE FORMAT parquet_file_format\n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'nyc_taxi_data_src') \n\tCREATE EXTERNAL DATA SOURCE nyc_taxi_data_src\n\tWITH (\n\t\tLOCATION = 'abfss://nyc-taxi-data@synapsecoursedl99.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE staging.ext_trip_data_green_agg (\n\t[pu_location_id] int,\n\t[do_location_id] int,\n\t[total_trip_count] bigint,\n\t[total_fare_amount] float\n\t)\n\tWITH (\n\tLOCATION = 'gold/trip_data_green_agg',\n\tDATA_SOURCE = nyc_taxi_data_src,\n\tFILE_FORMAT = parquet_file_format\n\t)\nGO\n\n\nSELECT TOP 100 * FROM staging.ext_trip_data_green_agg\nGO\n\n-- Create a schema and also table to load or copy using Round-Robin distribution to dedicated sql pool (internal table)\n-- You can check in tables on the nyc_taxi_dwh database \nCREATE SCHEMA dwh\nGO\n\nCREATE TABLE dwh.trip_data_green_agg\nWITH(\n\tCLUSTERED COLUMNSTORE INDEX,\n\tDISTRIBUTION = ROUND_ROBIN\n)\nAS\nSELECT * FROM staging.ext_trip_data_green_agg\nGO\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_dwh",
+				"poolName": "nyc_taxi_dwh"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

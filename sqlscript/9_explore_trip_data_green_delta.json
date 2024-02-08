@@ -1,0 +1,20 @@
+{
+	"name": "9_explore_trip_data_green_delta",
+	"properties": {
+		"folder": {
+			"name": "nyc-taxi/discovery"
+		},
+		"content": {
+			"query": "USE nyc_taxi_discovery;\n\n-- the parquet file actually same with the parquet with the delta_log\n-- If there is no delta_log folder, we can not query \n-- in the result of query it will be a metadata and data itself\n-- in the result there will be a partition directly in the result (year, month) \n-- Use the folders with / to query inside the folder \nSELECT TOP 100\n       *\n   FROM OPENROWSET(\n       BULK 'trip_data_green_delta/', \n       DATA_SOURCE = 'nyc_taxi_data_raw',\n       FORMAT = 'DELTA'\n   ) AS trip_data;\n\n\n-- Delta lake table could not directly query inside the subfolder \nSELECT TOP 100\n       *\n   FROM OPENROWSET(\n       BULK 'trip_data_green_delta/year=2020',\n       DATA_SOURCE = 'nyc_taxi_data_raw',\n       FORMAT = 'DELTA'\n   ) AS trip_data;  \n\n\n-- check the data type \nEXEC sp_describe_first_result_set N'\nSELECT TOP 100\n       *\n   FROM OPENROWSET(\n       BULK ''trip_data_green_delta/'',\n       DATA_SOURCE = ''nyc_taxi_data_raw'',\n       FORMAT = ''DELTA''\n   ) AS trip_data'\n\n\n-- Specify the data type in the coloumns \nSELECT TOP 100\n       *\n   FROM OPENROWSET(\n       BULK 'trip_data_green_delta/',\n       DATA_SOURCE = 'nyc_taxi_data_raw',\n       FORMAT = 'DELTA'\n   ) \n   WITH (\n       VendorID INT,\n        lpep_pickup_datetime datetime2(7),\n        lpep_dropoff_datetime datetime2(7),\n        store_and_fwd_flag CHAR(1),\n        RatecodeID INT,\n        PULocationID INT,\n        DOLocationID INT,\n        passenger_count INT,\n        trip_distance FLOAT,\n        fare_amount FLOAT,\n        extra FLOAT,\n        mta_tax FLOAT,\n        tip_amount FLOAT,\n        tolls_amount FLOAT,\n        ehail_fee INT,\n        improvement_surcharge FLOAT,\n        total_amount FLOAT,\n        payment_type INT,\n        trip_type INT,\n        congestion_surcharge FLOAT,\n        year VARCHAR(4),\n        month VARCHAR(2)\n   )AS trip_data;  \n\n-- Just select the columns that we need \n-- YEAR AND MONTH need to be included (to be used for partition)\nSELECT TOP 100\n       *\n   FROM OPENROWSET(\n       BULK 'trip_data_green_delta/',\n       DATA_SOURCE = 'nyc_taxi_data_raw',\n       FORMAT = 'DELTA'\n   ) \n   WITH (\n        tip_amount FLOAT,\n        trip_type INT,\n        year VARCHAR(4),\n        month VARCHAR(2)\n   )AS trip_data;  \n\n-- Count the distinct the payment type \nSELECT COUNT(DISTINCT payment_type)\n   FROM OPENROWSET(\n       BULK 'trip_data_green_delta/',\n       DATA_SOURCE = 'nyc_taxi_data_raw',\n       FORMAT = 'DELTA'\n   ) AS trip_data;  \n\n\n-- Count the distinct the payment type in 2020 January using the WHERE\nSELECT COUNT(DISTINCT payment_type)\n   FROM OPENROWSET(\n       BULK 'trip_data_green_delta/',\n       DATA_SOURCE = 'nyc_taxi_data_raw',\n       FORMAT = 'DELTA'\n   ) AS trip_data\n WHERE year = '2020' AND month = '01';  \n\n -- Note : delta lake data will be stored the old version, thus if there will be a new data. \n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_discovery",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

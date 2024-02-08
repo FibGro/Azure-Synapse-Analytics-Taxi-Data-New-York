@@ -1,0 +1,20 @@
+{
+	"name": "1_synapse_link_serverless_pool",
+	"properties": {
+		"folder": {
+			"name": "nyc-taxi/synapse_link"
+		},
+		"content": {
+			"query": "IF (NOT EXISTS(SELECT * FROM sys.credentials WHERE name = 'synapse-course-cosmos-db99'))\n    CREATE CREDENTIAL [synapse-course-cosmos-db99]\n    WITH IDENTITY = 'SHARED ACCESS SIGNATURE', SECRET = 'z5rWFLC39qJ4TkAXqDO6kOMYSNYHiQOchYUEA7PsnLQouWDVTheP1trk2ZQzoC8VZxqs7jIa9rOMACDb4mdRPA=='\nGO\n\nSELECT TOP 100 *\nFROM OPENROWSET(​PROVIDER = 'CosmosDB',\n                CONNECTION = 'Account=synapse-course-cosmos-db99;Database=nyctaxidb',\n                OBJECT = 'Heartbeat',\n                SERVER_CREDENTIAL = 'synapse-course-cosmos-db99'\n) AS [Heartbeat]\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

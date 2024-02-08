@@ -1,0 +1,20 @@
+{
+	"name": "4_create_external_table",
+	"properties": {
+		"folder": {
+			"name": "nyc-taxi/discovery"
+		},
+		"content": {
+			"query": "USE nyc_taxi_discovery;\n\nSELECT *\n  FROM OPENROWSET(\n      BULK 'trip_type.tsv',\n      DATA_SOURCE = 'nyc_taxi_data_raw',\n      FORMAT = 'CSV',\n      PARSER_VERSION = '2.0',\n      HEADER_ROW = TRUE,\n      FIELDTERMINATOR = '\\t' -- USe the fieldterminator with TAB!!!\n  ) AS trip_type;\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "nyc_taxi_discovery",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
