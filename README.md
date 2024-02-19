@@ -6,7 +6,7 @@
 <!-- * [License](#license) -->
 
 ## General Information
-This is part of learning process to get better understanding of using Azure Synapse Analytics. The process is followed the Udemy course. 
+This is part of learning process to get better understanding of using Azure Synapse Analytics.  
 We will learn how to build a real world project using Azure Synapse Analytics. This course has been taught using real world data from NYC Taxi Trips data. 
 Detail learning process: 
 - Create SQL scripts and Spark notebooks in Azure Synapse Analytics
